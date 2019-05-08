@@ -5,13 +5,56 @@
     });
 
 
-    viewer.dataSources.add(Cesium.CzmlDataSource.load('C:/Projects/GPXtoCZML_demo/CZMLfromSUMO_date.czml'));
-
-    viewer.scene.camera.setView({
-        destination:  Cesium.Cartesian3.fromDegrees(11.425557,48.764698, 3000),
-        orientation: {
-            heading: 6
+    var initialPosition = new Cesium.Cartesian3.fromDegrees(11.425557,48.764698, 3000);
+    var initialPosition = new Cesium.Cartesian3.fromDegrees(-73.998114468289017509, 40.674512895646692812, 2631.082799425431);
+    //var initialOrientation = new Cesium.HeadingPitchRoll.fromDegrees(7.1077496389876024807, -31.987223091598949054, 0.025883251314954971306);
+    var homeCameraView = {
+        destination : initialPosition,
+        orientation : {
+            heading : 6,//initialOrientation.heading,
+            //pitch : initialOrientation.pitch,
+            //roll : initialOrientation.roll
         }
+    };
+    viewer.scene.camera.setView(homeCameraView);
+
+    // Set up clock and timeline. 2019-05-08T00:00:00/2019-05-08T00:16:43
+    viewer.clock.shouldAnimate = true; // default
+    viewer.clock.startTime = Cesium.JulianDate.fromIso8601("2017-07-11T16:00:00Z");
+    viewer.clock.stopTime = Cesium.JulianDate.fromIso8601("2017-07-11T16:20:00Z");
+    viewer.clock.currentTime = Cesium.JulianDate.fromIso8601("2017-07-11T16:00:00Z");
+    //viewer.clock.startTime = Cesium.JulianDate.fromIso8601("2019-05-08T00:00:00Z");
+    //viewer.clock.stopTime = Cesium.JulianDate.fromIso8601("2019-05-08T00:16:43Z");
+    //viewer.clock.currentTime = Cesium.JulianDate.fromIso8601("2019-05-08T00:00:00Z");
+    viewer.clock.multiplier = 2; // sets a speedup
+    viewer.clock.clockStep = Cesium.ClockStep.SYSTEM_CLOCK_MULTIPLIER; // tick computation mode
+    viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP; // loop at the end
+    viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime); // set visible range
+
+
+    //viewer.dataSources.add(Cesium.CzmlDataSource.load('C:/Projects/GPXtoCZML_demo/CZMLfromSUMO_date.czml'));
+
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');//('C:/Projects/GPXtoCZML_demo/CZMLfromSUMO_date.czml');
+
+    var vehicle;
+    vehicleroute.then(function(dataSource){
+        viewer.dataSources.add(dataSource);
+        vehicle = dataSource.entities.getById('Point');
+        vehicle = dataSource.entities.getById('Aircraft/Aircraft1');
+        vehicle.model = {
+            uri: './Source/SampleData/Models/CesiumDrone.gltf',
+            minimumPixelSize : 128,
+            maximumScale : 1000,
+            silhouetteColor : Cesium.Color.WHITE,
+            silhouetteSize : 2
+        };
+    });
+
+    vehicle.orientation = new Cesium.VelocityOrientationProperty(vehicle.position);
+
+    vehicle.position.setInterpolationOptions({
+    interpolationDegree : 3,
+    interpolationAlgorithm : Cesium.HermitePolynomialApproximation
     });
 
 }());
