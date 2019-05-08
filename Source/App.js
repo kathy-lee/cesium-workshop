@@ -5,10 +5,10 @@
     });
 
 
-    viewer.dataSources.add(Cesium.CzmlDataSource.load('./Source/SampleData/Vehicle.czml'));
+    viewer.dataSources.add(Cesium.CzmlDataSource.load('C:/Projects/GPXtoCZML_demo/CZMLfromSUMO_date.czml'));
 
     viewer.scene.camera.setView({
-        destination:  Cesium.Cartesian3.fromDegrees(-116.52, 35.02, 95000),
+        destination:  Cesium.Cartesian3.fromDegrees(11.425557,48.764698, 3000),
         orientation: {
             heading: 6
         }
