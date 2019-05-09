@@ -6,7 +6,7 @@
 
 
     var initialPosition = new Cesium.Cartesian3.fromDegrees(11.425557,48.764698, 3000);
-    var initialPosition = new Cesium.Cartesian3.fromDegrees(-73.998114468289017509, 40.674512895646692812, 2631.082799425431);
+    //var initialPosition = new Cesium.Cartesian3.fromDegrees(-73.998114468289017509, 40.674512895646692812, 2631.082799425431);
     //var initialOrientation = new Cesium.HeadingPitchRoll.fromDegrees(7.1077496389876024807, -31.987223091598949054, 0.025883251314954971306);
     var homeCameraView = {
         destination : initialPosition,
@@ -32,14 +32,13 @@
     viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime); // set visible range
 
 
-    //viewer.dataSources.add(Cesium.CzmlDataSource.load('C:/Projects/GPXtoCZML_demo/CZMLfromSUMO_date.czml'));
-
+    //viewer.dataSources.add(Cesium.CzmlDataSource.load('C:/Projects/GPXtoCZML_demo/CZMLfromSUMO_elevation.czml'));
     var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');//('C:/Projects/GPXtoCZML_demo/CZMLfromSUMO_date.czml');
 
     var vehicle;
     vehicleroute.then(function(dataSource){
         viewer.dataSources.add(dataSource);
-        vehicle = dataSource.entities.getById('Point');
+        //vehicle = dataSource.entities.getById('Point');
         vehicle = dataSource.entities.getById('Aircraft/Aircraft1');
         vehicle.model = {
             uri: './Source/SampleData/Models/CesiumDrone.gltf',
