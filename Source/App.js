@@ -1,17 +1,17 @@
 (function () {
     "use strict";
     var viewer = new Cesium.Viewer('cesiumContainer', {
-        shouldAnimate : true
+        shouldAnimate: true
     });
 
 
-    var initialPosition = new Cesium.Cartesian3.fromDegrees(11.425557,48.764698, 3000);
+    var initialPosition = new Cesium.Cartesian3.fromDegrees(11.425557, 48.764698, 3000);
     //var initialPosition = new Cesium.Cartesian3.fromDegrees(-73.998114468289017509, 40.674512895646692812, 2631.082799425431);
     //var initialOrientation = new Cesium.HeadingPitchRoll.fromDegrees(7.1077496389876024807, -31.987223091598949054, 0.025883251314954971306);
     var homeCameraView = {
-        destination : initialPosition,
-        orientation : {
-            heading : 6,//initialOrientation.heading,
+        destination: initialPosition,
+        orientation: {
+            heading: 6, //initialOrientation.heading,
             //pitch : initialOrientation.pitch,
             //roll : initialOrientation.roll
         }
@@ -36,24 +36,23 @@
     //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');
 
     var vehicle;
-    vehicleroute.then(function(dataSource){
+    vehicleroute.then(function (dataSource) {
         viewer.dataSources.add(dataSource);
         vehicle = dataSource.entities.getById('Point');
         //vehicle = dataSource.entities.getById('Aircraft/Aircraft1');
         vehicle.model = {
             uri: './Source/SampleData/Models/CesiumMilkTruck.gltf',
-            minimumPixelSize : 12,
-            maximumScale : 1000,
-            silhouetteColor : Cesium.Color.WHITE,
+            minimumPixelSize: 12,
+            maximumScale: 1000,
+            silhouetteColor: Cesium.Color.WHITE,
             //silhouetteSize : 2
         };
-    });
+        vehicle.orientation = new Cesium.VelocityOrientationProperty(vehicle.position);
 
-    vehicle.orientation = new Cesium.VelocityOrientationProperty(vehicle.position);
-
-    vehicle.position.setInterpolationOptions({
-    interpolationDegree : 3,
-    interpolationAlgorithm : Cesium.HermitePolynomialApproximation
+        vehicle.position.setInterpolationOptions({
+            interpolationDegree: 3,
+            interpolationAlgorithm: Cesium.HermitePolynomialApproximation
+        });
     });
 
 }());
