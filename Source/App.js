@@ -32,14 +32,14 @@
     viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime); // set visible range
 
 
-    //viewer.dataSources.add(Cesium.CzmlDataSource.load('C:/Projects/GPXtoCZML_demo/CZMLfromSUMO_elevation.czml'));
-    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_date2.czml');
+    //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');
 
     var vehicle;
     vehicleroute.then(function(dataSource){
         viewer.dataSources.add(dataSource);
-        //vehicle = dataSource.entities.getById('Point');
-        vehicle = dataSource.entities.getById('Aircraft/Aircraft1');
+        vehicle = dataSource.entities.getById('Point');
+        //vehicle = dataSource.entities.getById('Aircraft/Aircraft1');
         vehicle.model = {
             uri: './Source/SampleData/Models/CesiumMilkTruck.gltf',
             minimumPixelSize : 12,
