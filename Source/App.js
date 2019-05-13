@@ -33,7 +33,7 @@
 
 
     //viewer.dataSources.add(Cesium.CzmlDataSource.load('C:/Projects/GPXtoCZML_demo/CZMLfromSUMO_elevation.czml'));
-    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');//('C:/Projects/GPXtoCZML_demo/CZMLfromSUMO_date.czml');
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');
 
     var vehicle;
     vehicleroute.then(function(dataSource){
@@ -41,11 +41,11 @@
         //vehicle = dataSource.entities.getById('Point');
         vehicle = dataSource.entities.getById('Aircraft/Aircraft1');
         vehicle.model = {
-            uri: './Source/SampleData/Models/CesiumDrone.gltf',
-            minimumPixelSize : 128,
+            uri: './Source/SampleData/Models/CesiumMilkTruck.gltf',
+            minimumPixelSize : 12,
             maximumScale : 1000,
             silhouetteColor : Cesium.Color.WHITE,
-            silhouetteSize : 2
+            //silhouetteSize : 2
         };
     });
 
