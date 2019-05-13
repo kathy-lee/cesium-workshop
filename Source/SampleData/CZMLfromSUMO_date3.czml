@@ -1,119 +1,63 @@
 [
    {
-      "id":"document",
-      "name":"SampleFlight",
+      "author":"Kangle Li",
       "version":"1.0",
+      "id":"document",
       "clock":{
          "interval":"2019-05-08T00:00:00Z/2019-05-08T00:16:43Z",
-         "currentTime":"2019-05-08T00:00:00Z",
          "multiplier":2,
-         "range":"LOOP_STOP",
-         "step":"SYSTEM_CLOCK_MULTIPLIER"
-      }
+         "currentTime":"2019-05-08T00:00:00Z"
+      },
+      "name":"Visualizing GPX data from SUMO"
    },
    {
-      "id":"Aircraft/Aircraft1",
-      "name":"Aircraft1",
-      "availability":"2019-05-08T00:00:00Z/2019-05-08T00:16:43Z",
-      "billboard":{
-         "color":{
-            "rgba":[
-               0,
-               255,
-               255,
-               255
-            ]
-         },
-         "eyeOffset":{
-            "cartesian":[
-               0,
-               0,
-               0
-            ]
-         },
-         "horizontalOrigin":"CENTER",
-         "image":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAjSURBVChTYyAa/EcDUGEIgIphAKg0XRSAAFQMDqDChAADAwDC13+BJ+0oDwAAAABJRU5ErkJgggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-         "pixelOffset":{
-            "cartesian2":[
-               0,
-               0
-            ]
-         },
-         "scale":1,
-         "show":true,
-         "verticalOrigin":"CENTER"
-      },
-      "path":{
-         "show":[
-            {
-               "interval":"2019-05-08T00:00:00Z/2019-05-08T00:16:43Z",
-               "boolean":true
-            }
-         ],
-         "width":1,
-         "material":{
-            "solidColor":{
-               "color":{
-                  "rgba":[
-                     0,
-                     255,
-                     255,
-                     255
-                  ]
-               }
-            }
-         },
-         "resolution":1200
-      },
       "position":{
-         "interpolationAlgorithm":"LAGRANGE",
-         "interpolationDegree":1,
          "epoch":"2019-05-08T00:00:00Z",
          "cartographicDegrees":[
             0,
             11.433648,
             48.764329,
-            100,
+            10,
             1.0,
             11.433471,
             48.764285,
-            100,
+            10,
             2.0,
             11.433297,
             48.76424,
-            100,
+            10,
             3.0,
             11.433146,
             48.764196,
-            100,
+            10,
             4.0,
             11.433014,
             48.764155,
-            100,
+            10,
             5.0,
             11.432866,
             48.764107,
-            100,
+            10,
             6.0,
             11.432733,
             48.764064,
-            100,
+            10,
             7.0,
             11.432596,
             48.764016,
-            100,
+            10,
             8.0,
             11.432452,
             48.763963,
-            100,
+            10,
             9.0,
             11.432334,
             48.763916,
-            100,
+            10,
             10.0,
             11.432215,
             48.763864,
-            100,
+            10,
             11.0,
             11.432082,
             48.763807,
@@ -475,6 +419,29 @@
             48.7625,
             10
          ]
-      }
+      },
+      "point":{
+         "color":{
+            "rgba":[
+               255,
+               255,
+               255,
+               255
+            ]
+         },
+         "outlineWidth":6,
+         "heightReference":"RELATIVE_TO_GROUND",
+         "pixelSize":8,
+         "outlineColor":{
+            "rgba":[
+               0,
+               173,
+               253,
+               255
+            ]
+         }
+      },
+      "id":"Point",
+      "availability":"2019-05-08T00:00:00Z/2019-05-08T00:16:43Z"
    }
 ]

@@ -1,19 +1,20 @@
 [
    {
-      "id":"document",
-      "name":"SampleFlight",
-      "version":"1.0",
+   	  "id":"document",
+   	  "name":"Visualizing GPX data from SUMO",
+      "author":"Kangle Li",
+      "version":"1.0",     
       "clock":{
          "interval":"2019-05-08T00:00:00Z/2019-05-08T00:16:43Z",
          "currentTime":"2019-05-08T00:00:00Z",
          "multiplier":2,
          "range":"LOOP_STOP",
          "step":"SYSTEM_CLOCK_MULTIPLIER"
-      }
+      }     
    },
    {
-      "id":"Aircraft/Aircraft1",
-      "name":"Aircraft1",
+   	  "id":"Point",
+   	  "name":"Truck",
       "availability":"2019-05-08T00:00:00Z/2019-05-08T00:16:43Z",
       "billboard":{
          "color":{
@@ -105,15 +106,15 @@
             8.0,
             11.432452,
             48.763963,
-            100,
+            10,
             9.0,
             11.432334,
             48.763916,
-            100,
+            10,
             10.0,
             11.432215,
             48.763864,
-            100,
+            10,
             11.0,
             11.432082,
             48.763807,
