@@ -32,7 +32,7 @@
     viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime); // set visible range
 
 
-    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_date2.czml');
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_date3.czml');
     //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');
 
     var vehicle;
