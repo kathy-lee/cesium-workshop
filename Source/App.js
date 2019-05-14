@@ -47,13 +47,12 @@
             silhouetteColor : Cesium.Color.WHITE,
             //silhouetteSize : 2
         };
-    });
+        vehicle.orientation = new Cesium.VelocityOrientationProperty(vehicle.position);
 
-    vehicle.orientation = new Cesium.VelocityOrientationProperty(vehicle.position);
-
-    vehicle.position.setInterpolationOptions({
-    interpolationDegree : 3,
-    interpolationAlgorithm : Cesium.HermitePolynomialApproximation
+        vehicle.position.setInterpolationOptions({
+            interpolationDegree : 3,
+            interpolationAlgorithm : Cesium.HermitePolynomialApproximation
+        });
     });
 
 }());
