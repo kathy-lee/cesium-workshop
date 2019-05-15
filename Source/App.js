@@ -32,16 +32,18 @@
     viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime); // set visible range
 
 
-    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_twovehicles.czml');
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_multiVeh.czml');
+    //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_twovehicles.czml');
     //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_date3.czml');
     //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');
 
+    /*
+    // two vehicle case
     var vehicle;
     var vehicle_second;
     vehicleroute.then(function (dataSource) {
         viewer.dataSources.add(dataSource);
         vehicle = dataSource.entities.getById('Point');
-        //vehicle = dataSource.entities.getById('Aircraft/Aircraft1');
         vehicle.model = {
             uri: './Source/SampleData/Models/CesiumMilkTruck.gltf',
             minimumPixelSize: 12,
@@ -68,6 +70,30 @@
             interpolationDegree : 3,
             interpolationAlgorithm : Cesium.HermitePolynomialApproximation
         });
+    });
+    */
+
+    // multiple vehicles case
+    var var_dataSource;
+    vehicleroute.then(function (dataSource) {
+        viewer.dataSources.add(dataSource);
+        var_dataSource = dataSource;
+        var entities = var_dataSource.entities.values;
+        console.log(entities.length);
+        for(let i=0;i<entities.length;i++){
+            let entity = entities[i];
+            entity.model = {
+                uri: './Source/SampleData/Models/CesiumMilkTruck.gltf',
+                minimumPixelSize: 12,
+                maximumScale: 1000,
+                silhouetteColor: Cesium.Color.WHITE,
+            };
+            entity.orientation = new Cesium.VelocityOrientationProperty(vehicle_second.position);
+            entity.position.setInterpolationOptions({
+                interpolationDegree:3,
+                interpolationAlgorithm: Cesium.HermitePolynomialApproximation
+            });
+        }
     });
 
 }());
