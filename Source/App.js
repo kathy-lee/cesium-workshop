@@ -35,7 +35,7 @@
     var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_multiVeh_model.czml');
     //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_twovehicles.czml');
     //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_date3.czml');
-    //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');
+    //var movehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');
 
     /*
     // single vehicle case
