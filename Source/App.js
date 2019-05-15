@@ -32,11 +32,30 @@
     viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime); // set visible range
 
 
-    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_multiVeh.czml');
+    //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_multiVeh.czml');
     //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_twovehicles.czml');
-    //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_date3.czml');
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_date3.czml');
     //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');
 
+    // single vehicle case
+    var vehicle;
+    vehicleroute.then(function (dataSource) {
+        viewer.dataSources.add(dataSource);
+        vehicle = dataSource.entities.getById('Point');
+        vehicle.model = {
+            uri: './Source/SampleData/Models/CesiumMilkTruck.gltf',
+            minimumPixelSize: 12,
+            maximumScale: 1000,
+            silhouetteColor: Cesium.Color.WHITE,
+        };
+        vehicle.orientation = new Cesium.VelocityOrientationProperty(vehicle.position);
+
+        vehicle.position.setInterpolationOptions({
+            interpolationDegree : 3,
+            interpolationAlgorithm : Cesium.HermitePolynomialApproximation
+        });
+    });
+    
     /*
     // two vehicle case
     var vehicle;
@@ -73,6 +92,7 @@
     });
     */
 
+    /*
     // multiple vehicles case
     var var_dataSource;
     vehicleroute.then(function (dataSource) {
@@ -95,5 +115,6 @@
             });
         }
     });
+    */
 
 }());
