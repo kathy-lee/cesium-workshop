@@ -32,11 +32,12 @@
     viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime); // set visible range
 
 
-    //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_multiVeh.czml');
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_multiVeh_model.czml');
     //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_twovehicles.czml');
-    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_date3.czml');
+    //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_date3.czml');
     //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');
 
+    /*
     // single vehicle case
     var vehicle;
     vehicleroute.then(function (dataSource) {
@@ -55,10 +56,11 @@
             interpolationAlgorithm : Cesium.HermitePolynomialApproximation
         });
     });
+    */
     
-    /*
+    
     // two vehicle case
-    var vehicle;
+    /*var vehicle;
     var vehicle_second;
     vehicleroute.then(function (dataSource) {
         viewer.dataSources.add(dataSource);
@@ -89,10 +91,9 @@
             interpolationDegree : 3,
             interpolationAlgorithm : Cesium.HermitePolynomialApproximation
         });
-    });
-    */
+    });*/
 
-    /*
+
     // multiple vehicles case
     var var_dataSource;
     vehicleroute.then(function (dataSource) {
@@ -115,6 +116,5 @@
             });
         }
     });
-    */
 
 }());
