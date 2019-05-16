@@ -100,15 +100,8 @@
         viewer.dataSources.add(dataSource);
         var_dataSource = dataSource;
         var entities = var_dataSource.entities.values;
-        //console.log(entities.length);
         for(let i=0;i<entities.length;i++){
             let entity = entities[i];
-            // entity.model = {
-            //     uri: './Source/SampleData/Models/CesiumMilkTruck.gltf',
-            //     minimumPixelSize: 12,
-            //     maximumScale: 1000,
-            //     silhouetteColor: Cesium.Color.WHITE,
-            // };
             entity.orientation = new Cesium.VelocityOrientationProperty(entity.position);
             entity.position.setInterpolationOptions({
                 interpolationDegree:3,
