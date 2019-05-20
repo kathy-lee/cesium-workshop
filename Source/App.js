@@ -32,12 +32,14 @@
     viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime); // set visible range
 
 
-    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_multiVeh_model.czml');
+    //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_multiVeh_model.czml');
     //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_twovehicles.czml');
     //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_date3.czml');
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
     //var movehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');
 
-    /*
+ 
+/*
     // single vehicle case
     var vehicle;
     vehicleroute.then(function (dataSource) {
@@ -56,7 +58,38 @@
             interpolationAlgorithm : Cesium.HermitePolynomialApproximation
         });
     });
-    */
+*/
+
+    var vehicle;
+    vehicleroute.then(function (dataSource) {
+        viewer.dataSources.add(dataSource);
+        vehicle = dataSource.entities.getById('Point');
+        vehicle.model = {
+            uri: './Source/SampleData/Models/CesiumMilkTruck.gltf',
+            minimumPixelSize: 12,
+            maximumScale: 1000,
+            silhouetteColor: Cesium.Color.WHITE,
+        };
+        vehicle.orientation = new Cesium.VelocityOrientationProperty(vehicle.position);
+
+        vehicle.position.setInterpolationOptions({
+            interpolationDegree : 3,
+            interpolationAlgorithm : Cesium.HermitePolynomialApproximation
+        });
+    });
+        // 3 compositeProperty
+        var compositeProperty = new Cesium.CompositeProperty();
+        compositeProperty.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
+            iso8601 : '2019-01-01T00:00:00.00Z/2019-01-02T00:00:00.00Z',
+            data : sampledProperty
+        }));
+        compositeProperty.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
+            iso8601 : '2019-01-02T00:00:00.00Z/2019-01-03T00:00:00.00Z',
+            isStartIncluded : false,
+            isStopIncluded : false,
+            data : ticProperty
+        }));
+    
     
     
     // two vehicle case
@@ -95,7 +128,7 @@
 
 
     // multiple vehicles case
-    var var_dataSource;
+    /*var var_dataSource;
     vehicleroute.then(function (dataSource) {
         viewer.dataSources.add(dataSource);
         var_dataSource = dataSource;
@@ -109,5 +142,6 @@
             });
         }
     });
+    */
 
 }());
