@@ -55,19 +55,11 @@
     });
     */
     
-
+    
     //single vehicle case but with composite property of orientation
     var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
     var vehicle;
     var compositeOri = new Cesium.CompositeProperty();
-    compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
-        iso8601 : '2019-05-08T00:00:00Z/2019-05-08T00:00:39Z',
-        data : Cesium.VelocityOrientationProperty(vehicle.position)
-    }));
-    compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
-        iso8601 : '2019-05-08T00:00:40Z/2019-05-08T00:01:25Z',
-        data : 0
-    })); 
     vehicleroute.then(function (dataSource) {
         viewer.dataSources.add(dataSource);
         vehicle = dataSource.entities.getById('Point');
@@ -77,6 +69,14 @@
             maximumScale: 1000,
             silhouetteColor: Cesium.Color.WHITE,
         };
+        compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
+            iso8601 : '2019-05-08T00:00:00Z/2019-05-08T00:00:39Z',
+            data : Cesium.VelocityOrientationProperty(vehicle.position)
+        }));
+        compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
+            iso8601 : '2019-05-08T00:00:40Z/2019-05-08T00:01:25Z',
+            data : 0
+        })); 
         vehicle.orientation = compositeOri;
 
         vehicle.position.setInterpolationOptions({
