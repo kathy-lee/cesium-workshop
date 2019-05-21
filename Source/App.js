@@ -31,34 +31,11 @@
     viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP; // loop at the end
     viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime); // set visible range
 
-
-    //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_multiVeh_model.czml');
-    //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_twovehicles.czml');
-    //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_date3.czml');
-    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
-    //var movehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');
-
  
-    // single vehicle case
-    var vehicle;
-    vehicleroute.then(function (dataSource) {
-        viewer.dataSources.add(dataSource);
-        vehicle = dataSource.entities.getById('Point');
-        vehicle.model = {
-            uri: './Source/SampleData/Models/CesiumMilkTruck.gltf',
-            minimumPixelSize: 12,
-            maximumScale: 1000,
-            silhouetteColor: Cesium.Color.WHITE,
-        };
-        vehicle.orientation = new Cesium.VelocityOrientationProperty(vehicle.position);
-
-        vehicle.position.setInterpolationOptions({
-            interpolationDegree : 3,
-            interpolationAlgorithm : Cesium.HermitePolynomialApproximation
-        });
-    });
-
     /*
+    // single vehicle case without composite property
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
+    //var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_date3.czml');  //CZML file without intervals
     var vehicle;
     vehicleroute.then(function (dataSource) {
         viewer.dataSources.add(dataSource);
@@ -76,24 +53,43 @@
             interpolationAlgorithm : Cesium.HermitePolynomialApproximation
         });
     });
-        // 3 compositeProperty
-        var compositeProperty = new Cesium.CompositeProperty();
-        compositeProperty.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
-            iso8601 : '2019-01-01T00:00:00.00Z/2019-01-02T00:00:00.00Z',
-            data : sampledProperty
-        }));
-        compositeProperty.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
-            iso8601 : '2019-01-02T00:00:00.00Z/2019-01-03T00:00:00.00Z',
-            isStartIncluded : false,
-            isStopIncluded : false,
-            data : ticProperty
-        }));
-        */
+    */
+    
+
+    //single vehicle case but with composite property of orientation
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
+    var vehicle;
+    var compositeOri = new Cesium.CompositeProperty();
+    compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
+        iso8601 : '2019-05-08T00:00:00Z/2019-05-08T00:00:39Z',
+        data : Cesium.VelocityOrientationProperty(vehicle.position)
+    }));
+    compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
+        iso8601 : '2019-05-08T00:00:40Z/2019-05-08T00:01:25Z',
+        data : 0
+    })); 
+    vehicleroute.then(function (dataSource) {
+        viewer.dataSources.add(dataSource);
+        vehicle = dataSource.entities.getById('Point');
+        vehicle.model = {
+            uri: './Source/SampleData/Models/CesiumMilkTruck.gltf',
+            minimumPixelSize: 12,
+            maximumScale: 1000,
+            silhouetteColor: Cesium.Color.WHITE,
+        };
+        vehicle.orientation = compositeOri;
+
+        vehicle.position.setInterpolationOptions({
+            interpolationDegree : 3,
+            interpolationAlgorithm : Cesium.HermitePolynomialApproximation
+        });
+    });
     
     
-    
+    /*
     // two vehicle case
-    /*var vehicle;
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_twovehicles.czml');
+    var vehicle;
     var vehicle_second;
     vehicleroute.then(function (dataSource) {
         viewer.dataSources.add(dataSource);
@@ -124,11 +120,14 @@
             interpolationDegree : 3,
             interpolationAlgorithm : Cesium.HermitePolynomialApproximation
         });
-    });*/
+    });
+    */
 
 
+    /*
     // multiple vehicles case
-    /*var var_dataSource;
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_multiVeh_model.czml');
+    var var_dataSource;
     vehicleroute.then(function (dataSource) {
         viewer.dataSources.add(dataSource);
         var_dataSource = dataSource;
