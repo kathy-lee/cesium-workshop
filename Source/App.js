@@ -39,7 +39,6 @@
     //var movehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/SampleFlight.czml');
 
  
-/*
     // single vehicle case
     var vehicle;
     vehicleroute.then(function (dataSource) {
@@ -58,8 +57,8 @@
             interpolationAlgorithm : Cesium.HermitePolynomialApproximation
         });
     });
-*/
 
+    /*
     var vehicle;
     vehicleroute.then(function (dataSource) {
         viewer.dataSources.add(dataSource);
@@ -89,6 +88,7 @@
             isStopIncluded : false,
             data : ticProperty
         }));
+        */
     
     
     
