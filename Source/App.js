@@ -70,14 +70,7 @@
             silhouetteColor: Cesium.Color.WHITE,
         };
         var movingOri = new Cesium.VelocityOrientationProperty(vehicle.position);
-        var position = Cesium.Cartesian3.fromDegrees(11.429103, 48.762381, 10);
-        var heading = Cesium.Math.toRadians(90);
-        var pitch = 0;
-        var roll = 0;
-        var hpr = new Cesium.HeadingPitchRoll(heading, pitch, roll);
-        // var stopOri = Cesium.Transforms.headingPitchRollQuaternion(position, hpr);
-        // var stopOri = new Cesium.ConstantPositionProperty();
-        var stopOri = undefined;
+        var stopOri = new Cesium.ConstantProperty(movingOri.getValue(timepoint));
         compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
             iso8601 : '2019-05-08T00:00:00Z/2019-05-08T00:00:39Z',
             data : movingOri
