@@ -71,12 +71,18 @@
         };
         var movingOri = new Cesium.VelocityOrientationProperty(vehicle.position);
         console.log(movingOri);
-        var stopOri = new Cesium.ConstantProperty(movingOri.getValue(Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z')));
-        //var stopOri = undefined;
-        compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
+        //var stopOri = new Cesium.ConstantProperty(movingOri.getValue(Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z')));
+        var vehicleInterval = new Cesium.TimeInterval({
+            start: Cesium.JulianDate.fromIso8601('2019-05-08T00:00:00Z'),
+            stop: Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z'),
+            data: movingOri
+        });
+        compositeOri.intervals.addInterval(vehicleInterval);
+        var stopOri = new Cesium.ConstantProperty(movingOri.getValue(vehicleInterval.stop));
+        /*compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
             iso8601 : '2019-05-08T00:00:00Z/2019-05-08T00:00:39Z',
             data : movingOri
-        }));
+        }));*/
         compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
             iso8601 : '2019-05-08T00:00:40Z/2019-05-08T00:01:25Z',
             data : stopOri
