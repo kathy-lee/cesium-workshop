@@ -70,7 +70,9 @@
             silhouetteColor: Cesium.Color.WHITE,
         };
         var movingOri = new Cesium.VelocityOrientationProperty(vehicle.position);
-        var stopOri = new Cesium.ConstantProperty(movingOri.getValue(timepoint));
+        console.log(movingOri);
+        var stopOri = new Cesium.ConstantProperty(movingOri.getValue(Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z')));
+        //var stopOri = undefined;
         compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
             iso8601 : '2019-05-08T00:00:00Z/2019-05-08T00:00:39Z',
             data : movingOri
