@@ -150,13 +150,7 @@
             silhouetteColor: Cesium.Color.WHITE,
         };
         var movingOri = new Cesium.VelocityOrientationProperty(vehicle.position);
-        console.log(movingOri);
-        /*var vehicleInterval = new Cesium.TimeInterval({
-            start: Cesium.JulianDate.fromIso8601('2019-05-08T00:00:00Z'),
-            stop: Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z'),
-            data: movingOri
-        });*/
-        var vehicleInterval = vehicle.position.intervals.get(0);
+        var vehicleIntervals = vehicle.position.intervals.get(0);
         vehicleInterval.data = movingOri;
         compositeOri.intervals.addInterval(vehicleInterval);
         var tmpStop = new Cesium.JulianDate(vehicleInterval.stop.dayNumber, vehicleInterval.stop.secondsOfDay);
