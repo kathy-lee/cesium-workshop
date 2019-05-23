@@ -55,8 +55,46 @@
     });
     */
 
-
+    /*
     //single vehicle case but with composite property of orientation
+    //version1.0: with fix stoptime
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
+    var vehicle;
+    var compositeOri = new Cesium.CompositeProperty();
+    vehicleroute.then(function (dataSource) {
+        viewer.dataSources.add(dataSource);
+        vehicle = dataSource.entities.getById('Point');
+        vehicle.model = {
+            uri: './Source/SampleData/Models/CesiumMilkTruck.gltf',
+            minimumPixelSize: 12,
+            maximumScale: 1000,
+            silhouetteColor: Cesium.Color.WHITE,
+        };
+        var movingOri = new Cesium.VelocityOrientationProperty(vehicle.position);
+        var stopOri = new Cesium.ConstantProperty(movingOri.getValue(Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z')));
+        compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
+            iso8601 : '2019-05-08T00:00:00Z/2019-05-08T00:00:39Z',
+            data : movingOri
+        }));
+        compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
+            iso8601 : '2019-05-08T00:00:40Z/2019-05-08T00:01:25Z',
+            data : stopOri
+        }));
+        compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
+            iso8601 : '2019-05-08T00:01:26Z/2019-05-08T00:01:40Z',
+            data : movingOri
+        }));
+        vehicle.orientation = compositeOri;
+        vehicle.position.setInterpolationOptions({
+            interpolationDegree : 3,
+            interpolationAlgorithm : Cesium.HermitePolynomialApproximation
+            });
+    });
+    */
+    
+    /*
+    //single vehicle case but with composite property of orientation
+    //version2.0:get the stop time from last interval
     var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
     var vehicle;
     var compositeOri = new Cesium.CompositeProperty();
@@ -71,7 +109,6 @@
         };
         var movingOri = new Cesium.VelocityOrientationProperty(vehicle.position);
         console.log(movingOri);
-        //var stopOri = new Cesium.ConstantProperty(movingOri.getValue(Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z')));
         var vehicleInterval = new Cesium.TimeInterval({
             start: Cesium.JulianDate.fromIso8601('2019-05-08T00:00:00Z'),
             stop: Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z'),
@@ -79,10 +116,6 @@
         });
         compositeOri.intervals.addInterval(vehicleInterval);
         var stopOri = new Cesium.ConstantProperty(movingOri.getValue(vehicleInterval.stop));
-        /*compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
-            iso8601 : '2019-05-08T00:00:00Z/2019-05-08T00:00:39Z',
-            data : movingOri
-        }));*/
         compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
             iso8601 : '2019-05-08T00:00:40Z/2019-05-08T00:01:25Z',
             data : stopOri
@@ -98,7 +131,51 @@
             interpolationAlgorithm : Cesium.HermitePolynomialApproximation
         });
     });
+    */
+    
 
+    
+    //single vehicle case but with composite property of orientation
+    //version3.0:get the time interval from CZML
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
+    var vehicle;
+    var compositeOri = new Cesium.CompositeProperty();
+    vehicleroute.then(function (dataSource) {
+        viewer.dataSources.add(dataSource);
+        vehicle = dataSource.entities.getById('Point');
+        vehicle.model = {
+            uri: './Source/SampleData/Models/CesiumMilkTruck.gltf',
+            minimumPixelSize: 12,
+            maximumScale: 1000,
+            silhouetteColor: Cesium.Color.WHITE,
+        };
+        var movingOri = new Cesium.VelocityOrientationProperty(vehicle.position);
+        console.log(movingOri);
+        /*var vehicleInterval = new Cesium.TimeInterval({
+            start: Cesium.JulianDate.fromIso8601('2019-05-08T00:00:00Z'),
+            stop: Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z'),
+            data: movingOri
+        });*/
+        var vehicleInterval = vehicle.position.intervals.get(0);
+        vehicleInterval.data = movingOri;
+        compositeOri.intervals.addInterval(vehicleInterval);
+        var tmpStop = new Cesium.JulianDate(vehicleInterval.stop.dayNumber, vehicleInterval.stop.secondsOfDay);
+        var stopOri = new Cesium.ConstantProperty(movingOri.getValue(tmpStop));
+        compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
+            iso8601 : '2019-05-08T00:00:40Z/2019-05-08T00:01:25Z',
+            data : stopOri
+        }));
+        compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
+            iso8601 : '2019-05-08T00:01:26Z/2019-05-08T00:01:40Z',
+            data : movingOri
+        }));
+        vehicle.orientation = compositeOri;
+
+        // vehicle.position.setInterpolationOptions({
+        //     interpolationDegree : 3,
+        //     interpolationAlgorithm : Cesium.HermitePolynomialApproximation
+        // });
+    });
 
     /*
     // two vehicle case
