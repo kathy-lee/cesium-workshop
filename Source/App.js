@@ -150,11 +150,13 @@
             silhouetteColor: Cesium.Color.WHITE,
         };
         var movingOri = new Cesium.VelocityOrientationProperty(vehicle.position);
-        var vehicleIntervals = vehicle.position.intervals.get(0);
-        vehicleInterval.data = movingOri;
+        var vehicleInterval = new Cesium.TimeInterval({
+            start: vehicle.position.intervals.get(0).start,
+            stop: vehicle.position.intervals.get(0).stop,
+            data: movingOri
+        })
         compositeOri.intervals.addInterval(vehicleInterval);
-        var tmpStop = new Cesium.JulianDate(vehicleInterval.stop.dayNumber, vehicleInterval.stop.secondsOfDay);
-        var stopOri = new Cesium.ConstantProperty(movingOri.getValue(tmpStop));
+        var stopOri = new Cesium.ConstantProperty(movingOri.getValue(vehicleInterval.stop));
         compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
             iso8601 : '2019-05-08T00:00:40Z/2019-05-08T00:01:25Z',
             data : stopOri
@@ -165,10 +167,10 @@
         }));
         vehicle.orientation = compositeOri;
 
-        // vehicle.position.setInterpolationOptions({
-        //     interpolationDegree : 3,
-        //     interpolationAlgorithm : Cesium.HermitePolynomialApproximation
-        // });
+        vehicle.position.setInterpolationOptions({
+            interpolationDegree : 3,
+            interpolationAlgorithm : Cesium.HermitePolynomialApproximation
+        });
     });
 
     /*
