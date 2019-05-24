@@ -132,9 +132,8 @@
         });
     });
     */
-    
 
-    
+/*
     //single vehicle case but with composite property of orientation
     //version3.0:get the time interval from CZML
     var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
@@ -172,6 +171,49 @@
             interpolationAlgorithm : Cesium.HermitePolynomialApproximation
         });
     });
+*/
+
+    //single vehicle case but with composite property of orientation
+    //version4.0:get the time interval from CZML
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
+    var vehicle;
+    var compositeOri = new Cesium.CompositeProperty();
+    vehicleroute.then(function (dataSource) {
+        viewer.dataSources.add(dataSource);
+        vehicle = dataSource.entities.getById('Point');
+        vehicle.model = {
+            uri: './Source/SampleData/Models/CesiumMilkTruck.gltf',
+            minimumPixelSize: 12,
+            maximumScale: 1000,
+            silhouetteColor: Cesium.Color.WHITE,
+        };
+        var movingOri = new Cesium.VelocityOrientationProperty(vehicle.position);
+        var stopOri = new Cesium.ConstantProperty(movingOri.getValue(Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z')));
+        for(let i=0;i<vehicle.position.intervals.length;i++){
+            if(vehicle.position.intervals.get(i).start == vehicle.position.intervals.get(i).stop){
+                var vehicleInterval = new Cesium.TimeInterval({
+                    start: vehicle.position.intervals.get(i).start,
+                    stop: vehicle.position.intervals.get(i).stop,
+                    data: stopOri
+                })
+            }
+            else{
+                var vehicleInterval = new Cesium.TimeInterval({
+                    start: vehicle.position.intervals.get(i).start,
+                    stop: vehicle.position.intervals.get(i).stop,
+                    data: movingOri
+                })
+                stopOri.setValue(movingOri.getValue(vehicleInterval.stop));
+            }
+            compositeOri.intervals.addInterval(vehicleInterval);
+        }
+        vehicle.orientation = compositeOri;
+        vehicle.position.setInterpolationOptions({
+            interpolationDegree : 3,
+            interpolationAlgorithm : Cesium.HermitePolynomialApproximation
+        });
+    });
+
 
     /*
     // two vehicle case
