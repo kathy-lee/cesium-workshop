@@ -142,10 +142,10 @@
     });
     */
 
-
+/*
     //single vehicle case but with composite property of orientation
     //version3.0:get the time interval from CZML
-    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh2.czml');
     var vehicle;
     var compositeOri = new Cesium.CompositeProperty();
     vehicleroute.then(function (dataSource) {
@@ -166,11 +166,11 @@
         compositeOri.intervals.addInterval(vehicleInterval);
         var stopOri = new Cesium.ConstantProperty(movingOri.getValue(vehicleInterval.stop));
         compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
-            iso8601 : '2019-05-08T00:00:40Z/2019-05-08T00:01:25Z',
+            iso8601 : '2019-05-08T00:00:41Z/2019-05-08T00:01:24Z',
             data : stopOri
         }));
         compositeOri.intervals.addInterval(Cesium.TimeInterval.fromIso8601({
-            iso8601 : '2019-05-08T00:01:26Z/2019-05-08T00:01:40Z',
+            iso8601 : '2019-05-08T00:01:25Z/2019-05-08T00:01:40Z',
             data : movingOri
         }));
         vehicle.orientation = compositeOri;
@@ -180,12 +180,12 @@
             interpolationAlgorithm : Cesium.HermitePolynomialApproximation
         });
     });
-
+*/
 
 
     //single vehicle case but with composite property of orientation
     //version4.0:get the time interval from CZML
-    /*var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
+    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
     var vehicle;
     var compositeOri = new Cesium.CompositeProperty();
     vehicleroute.then(function (dataSource) {
@@ -200,7 +200,7 @@
         var movingOri = new Cesium.VelocityOrientationProperty(vehicle.position);
         var stopOri = new Cesium.ConstantProperty(movingOri.getValue(Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z')));
         for(let i=0;i<vehicle.position.intervals.length;i++){
-            if(vehicle.position.intervals.get(i).start == vehicle.position.intervals.get(i).stop){
+            if(vehicle.position.intervals.get(i).data.isConstant){
                 var vehicleInterval = new Cesium.TimeInterval({
                     start: vehicle.position.intervals.get(i).start,
                     stop: vehicle.position.intervals.get(i).stop,
@@ -222,7 +222,7 @@
             interpolationDegree : 3,
             interpolationAlgorithm : Cesium.HermitePolynomialApproximation
         });
-    });*/
+    });
 
 
     /*
