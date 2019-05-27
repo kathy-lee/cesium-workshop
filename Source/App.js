@@ -31,6 +31,15 @@
     viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP; // loop at the end
     viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime); // set visible range
 
+    //add the GLTF road model from Roadrunner
+    var scene = viewer.scene;
+    var modelMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(
+        Cesium.Cartesian3.fromDegrees(11.425557, 48.764698, 0.0));
+    var model = scene.primitives.add(Cesium.Model.fromGltf({
+        url : './Source/SampleData/Models/Exports.gltf',
+        modelMatrix : modelMatrix,
+        scale : 1.0
+    }));
 
     /*
     // single vehicle case without composite property
@@ -133,7 +142,7 @@
     });
     */
 
-/*
+
     //single vehicle case but with composite property of orientation
     //version3.0:get the time interval from CZML
     var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
@@ -171,11 +180,12 @@
             interpolationAlgorithm : Cesium.HermitePolynomialApproximation
         });
     });
-*/
+
+
 
     //single vehicle case but with composite property of orientation
     //version4.0:get the time interval from CZML
-    var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
+    /*var vehicleroute = Cesium.CzmlDataSource.load('./Source/SampleData/CZMLfromSUMO_singleVeh.czml');
     var vehicle;
     var compositeOri = new Cesium.CompositeProperty();
     vehicleroute.then(function (dataSource) {
@@ -212,7 +222,7 @@
             interpolationDegree : 3,
             interpolationAlgorithm : Cesium.HermitePolynomialApproximation
         });
-    });
+    });*/
 
 
     /*
