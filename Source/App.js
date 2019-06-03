@@ -222,6 +222,8 @@
             interpolationDegree : 3,
             interpolationAlgorithm : Cesium.HermitePolynomialApproximation
         });
+    }).otherwise(function(error) {
+        console.log(error);
     });
 
 
