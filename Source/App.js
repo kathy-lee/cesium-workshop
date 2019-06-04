@@ -31,6 +31,7 @@
     viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP; // loop at the end
     viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime); // set visible range
 
+    /*
     //add the GLTF road model from Roadrunner
     var scene = viewer.scene;
     var modelMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(
@@ -40,6 +41,7 @@
         modelMatrix : modelMatrix,
         scale : 1.0
     }));
+    */
 
     /*
     // single vehicle case without composite property
@@ -198,7 +200,7 @@
             silhouetteColor: Cesium.Color.WHITE,
         };
         var movingOri = new Cesium.VelocityOrientationProperty(vehicle.position);
-        var stopOri = new Cesium.ConstantProperty(movingOri.getValue(Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z')));
+        var stopOri = undefined;//new Cesium.ConstantProperty(movingOri.getValue(Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z')));
         for(let i=0;i<vehicle.position.intervals.length;i++){
             if(vehicle.position.intervals.get(i).data.isConstant){
                 var vehicleInterval = new Cesium.TimeInterval({
@@ -225,6 +227,9 @@
     }).otherwise(function(error) {
         console.log(error);
     });
+
+    //window.vehicle = vehicle;
+    //window.viewer = viewer;
 
 
     /*
