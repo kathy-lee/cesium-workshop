@@ -215,7 +215,9 @@
                     stop: vehicle.position.intervals.get(i).stop,
                     data: movingOri
                 })
-                stopOri.setValue(movingOri.getValue(vehicleInterval.stop));
+                var lastSecondTimeSpot = new Cesium.JulianDate();
+                Cesium.JulianDate.addSeconds(vehicleInterval.stop, -1, lastSecondTimeSpot);
+                stopOri.setValue(movingOri.getValue(lastSecondTimeSpot));
             }
             compositeOri.intervals.addInterval(vehicleInterval);
         }
