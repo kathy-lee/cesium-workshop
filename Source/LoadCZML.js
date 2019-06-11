@@ -1,4 +1,14 @@
+Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5MWU0ZWJiZi04YmJmLTRlOWQtYjkzNi1jZTA1NmQzNDJlZTIiLCJpZCI6MTAzMjksInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NTYxODcyMDl9.Of7HtbL9lUavIdvaot0aWblv-ZgAr6zCffgg7gg577I';
+
 var viewer = new Cesium.Viewer('cesiumContainer');
+
+var tileset = viewer.scene.primitives.add(
+    new Cesium.Cesium3DTileset({
+        url: Cesium.IonResource.fromAssetId(30563)
+    })
+);
+
+
 var initialPosition = new Cesium.Cartesian3.fromDegrees(11.425557, 48.764698, 3000);
 //var initialPosition = new Cesium.Cartesian3.fromDegrees(-73.998114468289017509, 40.674512895646692812, 2631.082799425431);
 //var initialOrientation = new Cesium.HeadingPitchRoll.fromDegrees(7.1077496389876024807, -31.987223091598949054, 0.025883251314954971306);
