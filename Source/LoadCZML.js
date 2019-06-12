@@ -63,6 +63,11 @@ function showCZML(czmlFile) {
     var vehicleroute = Cesium.CzmlDataSource.load(czmlFile);
     var vehicle;
     var compositeOri = new Cesium.CompositeProperty();
+
+    if(viewer.dataSources.length){
+        viewer.dataSources.removeAll(false);//destroy();//remove(dataSource);
+    } 
+
     vehicleroute.then(function (dataSource) {
         viewer.dataSources.add(dataSource);
         vehicle = dataSource.entities.getById('Point');
@@ -73,8 +78,7 @@ function showCZML(czmlFile) {
             silhouetteColor: Cesium.Color.WHITE,
         };
         var movingOri = new Cesium.VelocityOrientationProperty(vehicle.position);
-        var stopOri = new Cesium
-            .ConstantProperty(); //movingOri.getValue(Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z'))
+        var stopOri = new Cesium.ConstantProperty(); //movingOri.getValue(Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z'))
         for (let i = 0; i < vehicle.position.intervals.length; i++) {
             if (vehicle.position.intervals.get(i).data.isConstant) {
                 var vehicleInterval = new Cesium.TimeInterval({
@@ -95,10 +99,10 @@ function showCZML(czmlFile) {
             compositeOri.intervals.addInterval(vehicleInterval);
         }
         vehicle.orientation = compositeOri;
-        vehicle.position.setInterpolationOptions({
+        /*vehicle.position.setInterpolationOptions({
             interpolationDegree: 3,
             interpolationAlgorithm: Cesium.HermitePolynomialApproximation
-        });
+        });*/
     }).otherwise(function (error) {
         console.log(error);
     });
