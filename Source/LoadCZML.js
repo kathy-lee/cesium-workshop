@@ -99,10 +99,10 @@ function showCZML(czmlFile) {
             compositeOri.intervals.addInterval(vehicleInterval);
         }
         vehicle.orientation = compositeOri;
-        /*vehicle.position.setInterpolationOptions({
+        vehicle.position.setInterpolationOptions({
             interpolationDegree: 3,
             interpolationAlgorithm: Cesium.HermitePolynomialApproximation
-        });*/
+        });
     }).otherwise(function (error) {
         console.log(error);
     });
