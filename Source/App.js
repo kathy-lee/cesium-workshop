@@ -201,23 +201,26 @@
         };
         var movingOri = new Cesium.VelocityOrientationProperty(vehicle.position);
         var stopOri = new Cesium.ConstantProperty();//movingOri.getValue(Cesium.JulianDate.fromIso8601('2019-05-08T00:00:39Z'))
-        for(let i=0;i<vehicle.position.intervals.length;i++){
+        for(var i=0;i<vehicle.position.intervals.length;i++){
             if(vehicle.position.intervals.get(i).data.isConstant){
                 var vehicleInterval = new Cesium.TimeInterval({
                     start: vehicle.position.intervals.get(i).start,
                     stop: vehicle.position.intervals.get(i).stop,
                     data: stopOri
-                })
+                });
             }
             else{
                 var vehicleInterval = new Cesium.TimeInterval({
                     start: vehicle.position.intervals.get(i).start,
                     stop: vehicle.position.intervals.get(i).stop,
                     data: movingOri
-                })
+                });
+                // use the orientation of second last time point of last moving interval
                 var lastSecondTimeSpot = new Cesium.JulianDate();
                 Cesium.JulianDate.addSeconds(vehicleInterval.stop, -1, lastSecondTimeSpot);
                 stopOri.setValue(movingOri.getValue(lastSecondTimeSpot));
+                // use the orientation of last time point of last moving interval, but doesn't work
+                //stopOri = movingOri.getValue(stop);
             }
             compositeOri.intervals.addInterval(vehicleInterval);
         }
